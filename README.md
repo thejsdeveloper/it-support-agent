@@ -39,6 +39,10 @@ The model never runs code itself; it can only ask. All tool execution happens in
 
 For the full picture, with diagrams of every component, see **[docs/architecture.md](docs/architecture.md)**.
 
+New to Python? Start with **[docs/beginners-guide.md](docs/beginners-guide.md)**. It covers which
+files to read first and how a question flows through the code, and it explains each Python feature
+the project uses.
+
 ## Tools
 
 | Tool | What it does |
@@ -125,6 +129,7 @@ src/it_support_agent/
     └── prompts.py       # system prompt with the decision rules
 tests/unit/              # mirrors src/; uses a fake LLM, no network
 docs/architecture.md     # detailed design with diagrams
+docs/beginners-guide.md  # where to start reading, for Python beginners
 ```
 
 ## Adding a tool
