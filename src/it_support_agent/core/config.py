@@ -17,8 +17,9 @@ class Settings:
     log_level: str = "WARNING"
 
     @classmethod
-    def from_env(cls) -> "Settings":
-        api_key = os.getenv("OPENROUTER_API_KEY")
+    def from_env(cls, api_key: str | None = None) -> "Settings":
+        """Read settings from the environment; `api_key`, if given, replaces OPENROUTER_API_KEY."""
+        api_key = api_key or os.getenv("OPENROUTER_API_KEY")
         if not api_key:
             raise RuntimeError("OPENROUTER_API_KEY is not set. Copy .env.example to .env and fill it in.")
         return cls(

@@ -101,6 +101,34 @@ uv run python -m it_support_agent "is db-node-02 ok?"
 LOG_LEVEL=INFO uv run it-support-agent "auth-service-03 keeps crashing"
 ```
 
+### Web UI (Streamlit)
+
+Prefer a browser to the terminal? Start the chat UI:
+
+```sh
+uv run streamlit run src/it_support_agent/ui.py
+```
+
+It opens at <http://localhost:8501>. If `OPENROUTER_API_KEY` isn't set in `.env`, paste your key into
+the **API key** field in the sidebar (you can also use it to override the `.env` key). The key is
+kept only for that browser session and never saved. Changing it starts a new conversation.
+
+Type a question in the chat box at the bottom, or click one of
+the sample questions shown on the start screen (they also stay in the sidebar). The agent remembers the conversation, so you can ask follow-ups.
+**Clear conversation** starts fresh. Stop the server with `Ctrl+C` in the terminal.
+
+Sample questions to try (they use the [mock servers](#mock-servers-to-try)):
+
+| Ask | What the agent should do |
+|---|---|
+| `payment-server-01 is slow, please handle it` | Finds 98% CPU and a hung process, restarts it |
+| `auth-service-03 keeps crashing` | Finds a memory leak, restarts it |
+| `search-index-09 has a problem, please handle it` | Finds its search engine is down, escalates with a ticket ID |
+| `Is db-node-02 ok?` | Reports it healthy, takes no action |
+| `Check frontend-node-04 and db-node-02` | Checks both servers, reports both healthy |
+| `What did you do to payment-server-01?` (as a follow-up) | Answers from the conversation so far |
+| `Check web-server-99` | Says the server is unknown and asks you to check the ID |
+
 ## Configuration
 
 Settings are read from `.env` (or from your shell environment, which takes priority).
@@ -118,6 +146,7 @@ Settings are read from `.env` (or from your shell environment, which takes prior
 ```
 src/it_support_agent/
 ├── cli.py               # entry point: one-shot or interactive
+├── ui.py                # Streamlit chat UI
 ├── core/                # settings (.env), logging, error types
 ├── llm/client.py        # OpenRouter client
 ├── tools/
